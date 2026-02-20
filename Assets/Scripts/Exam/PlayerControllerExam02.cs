@@ -20,6 +20,21 @@ public class PlayerControllerExam02 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        verticalInput = moveAction.ReadValue<Vector2>().y;
+        verticalInput = moveAction.ReadValue<Vector2>().x;
+        transform.Translate(verticalInput * speed * Time.deltaTime * Vector3.right);
+        if (transform.position.z < -zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y , -zRange);
+        }
+        if (transform.position.z > zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
+        }
+        if (shootAction.triggered)
+        {
+            
+            Instantiate(projectilePrefab, transform.position, transform.rotation);
+        }
     }
+
 }
